@@ -4,7 +4,7 @@
 include('./bd/sec/conapibd.php');
 
 
-if (empty($_GET['ambiente']) || empty($_GET['email']) || empty($_GET['senha'])       ) {
+if (empty($_POST['ambiente']) || empty($_POST['email']) || empty($_POST['senha'])       ) {
 
 // retornando 401 pois nao foi possível autenticar.
 http_response_code(401);
@@ -20,9 +20,9 @@ echo json_encode( $resultado );
 
 }
 
-$sql_ambiente = mysqli_real_escape_string($conexao, $_GET['ambiente']);
-$sql_email = mysqli_real_escape_string($conexao, $_GET['email']);
-$sql_senha = mysqli_real_escape_string($conexao, $_GET['senha']);
+$sql_ambiente = mysqli_real_escape_string($conexao, $_POST['ambiente']);
+$sql_email = mysqli_real_escape_string($conexao, $_POST['email']);
+$sql_senha = mysqli_real_escape_string($conexao, $_POST['senha']);
 
 $agent = $_SERVER['HTTP_USER_AGENT'];
 
@@ -42,9 +42,6 @@ $query = "select usrzap_id from tb_zapier_users where usrzap_email = '{$sql_emai
 $rodaauth = mysqli_query($conexao, $query);
 
 $row = mysqli_num_rows($rodaauth);
-
-
-echo "total de linhas é $row";
 
 
 
